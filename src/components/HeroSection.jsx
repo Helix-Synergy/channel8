@@ -77,28 +77,34 @@ const Planet = ({ item, index, total, rotate }) => {
             {/* Main Card Content - No Rotation applied to this, so it stays flat/readable */}
             <div className="group cursor-pointer relative -translate-x-1/2 -translate-y-1/2">
                 {/* Soft Rounded (Squircle) Logo Layout */}
+                {/* Soft Rounded (Squircle) Logo Layout - Styled like Central Sun */}
                 <div className={`
                     w-28 h-28 md:w-32 md:h-32 flex items-center justify-center
-                    rounded-full ${item.bg} backdrop-blur-md border border-white/20 
-                    shadow-2xl hover:scale-110 hover:bg-navy-800 transition-all duration-300 p-2
+                    rounded-full bg-white backdrop-blur-md border border-teal-500/30 
+                    shadow-[0_0_30px_rgba(0,128,128,0.2)] hover:shadow-[0_0_50px_rgba(0,255,255,0.4)]
+                    hover:scale-110 transition-all duration-300 p-2 relative overflow-hidden
                  `}>
+
+                    {/* Inner Glow to match Central Sun */}
+                    <div className="absolute inset-0 rounded-full bg-gradient-to-r from-teal-500/10 to-cyan-500/10 blur-md z-0" />
+
                     {/* Icon or Image Logo */}
                     <div className={`
-                        w-full h-full flex items-center justify-center 
+                        w-full h-full flex items-center justify-center relative z-10
                         ${item.color} drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]
                      `}>
                         {item.img ? (
-                            <img src={item.img} alt={item.title} className="w-full h-full object-contain rounded-full" />
+                            <img src={item.img} alt={item.title} className="w-full h-full object-contain rounded-full opacity-90 hover:opacity-100 transition-opacity" />
                         ) : (
                             item.icon
                         )}
                     </div>
 
                     {/* Hover Glow Effect */}
-                    <div className="absolute inset-0 rounded-full bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <div className="absolute inset-0 rounded-full bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity z-20" />
 
                     {/* Optional: Tooltip on Hover since text is gone */}
-                    <div className="absolute opacity-0 group-hover:opacity-100 transition-opacity top-full mt-2 left-1/2 -translate-x-1/2 bg-black/80 text-white text-xs px-2 py-1 rounded pointer-events-none whitespace-nowrap">
+                    <div className="absolute opacity-0 group-hover:opacity-100 transition-opacity top-full mt-2 left-1/2 -translate-x-1/2 bg-black/80 text-white text-xs px-2 py-1 rounded pointer-events-none whitespace-nowrap z-30">
                         {item.title}
                     </div>
                 </div>
