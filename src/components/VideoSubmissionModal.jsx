@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Upload, Video, CheckCircle } from 'lucide-react';
+import API_BASE_URL from '../config';
 
 const VideoSubmissionModal = ({ isOpen, onClose }) => {
     const [dragActive, setDragActive] = useState(false);
@@ -66,7 +67,7 @@ const VideoSubmissionModal = ({ isOpen, onClose }) => {
         data.append('video', file);
 
         try {
-            const apiBase = import.meta.env.VITE_API_URL || 'http://localhost:5002/api';
+            const apiBase = API_BASE_URL;
             const response = await fetch(`${apiBase}/videos/upload`, {
                 method: 'POST',
                 body: data,

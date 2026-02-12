@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Play, Music } from 'lucide-react';
+import API_BASE_URL from '../config';
 
 const PodcastHub = () => {
     const [episodes, setEpisodes] = useState([]);
     const [activeEpisode, setActiveEpisode] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5002/api';
+    const API_URL = API_BASE_URL;
 
     useEffect(() => {
         const fetchPodcasts = async () => {

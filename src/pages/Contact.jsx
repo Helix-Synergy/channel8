@@ -4,6 +4,8 @@ import { Mail, Phone, MapPin, Send, Globe, MessageSquare } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
 import VideoSubmissionModal from '../components/VideoSubmissionModal';
 
+import API_BASE_URL from '../config';
+
 const Contact = () => {
     const location = useLocation();
     const [subject, setSubject] = useState('Select a topic...');
@@ -38,7 +40,7 @@ const Contact = () => {
         }
 
         try {
-            const apiBase = import.meta.env.VITE_API_URL || 'http://localhost:5002/api';
+            const apiBase = API_BASE_URL;
             const response = await fetch(`${apiBase}/contact`, {
                 method: 'POST',
                 headers: {
