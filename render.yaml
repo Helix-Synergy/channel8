@@ -1,0 +1,22 @@
+services:
+  # Frontend Service (React/Vite)
+  - type: static
+    name: channel-frontend
+    env: static
+    buildCommand: npm install && npm run build
+    publishDir: dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+
+  # Backend Service (Node/Express)
+  - type: web
+    name: channel-backend
+    env: node
+    root: backend # Specifies the subdirectory for the backend
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
