@@ -85,7 +85,7 @@ const BentoGrid = () => {
                     viewport={{ once: true }}
                     className="text-4xl md:text-5xl font-bold text-center mb-16"
                 >
-                    Our <span className="text-teal-400">Content Universe</span>
+                    Our <span className="text-teal-400">Channels</span>
                 </motion.h2>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">

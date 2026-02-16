@@ -106,8 +106,8 @@ const Contact = () => {
                                 <span className="inline-block px-3 py-1 rounded-full bg-teal-500/20 text-teal-300 text-xs font-bold uppercase mb-3 backdrop-blur-sm self-start">
                                     Global HQ
                                 </span>
-                                <h3 className="text-2xl font-bold text-white mb-1">Hyderabad, India</h3>
-                                <p className="text-gray-300 text-sm">The heart of our digital operations.</p>
+                                <h3 className="text-xl font-bold text-white mb-1">Mahaveer Radiance</h3>
+                                <p className="text-gray-300 text-sm">1st floor; Madhapur, Road No. 36, Jubilee Hills, Telangana 500081</p>
                             </div>
                         </div>
 
@@ -119,7 +119,7 @@ const Contact = () => {
                                 </div>
                                 <div>
                                     <p className="text-gray-400 text-xs uppercase tracking-wider font-bold">Email Us</p>
-                                    <p className="text-white font-medium">info@channel8network.com</p>
+                                    <p className="text-white font-medium">hello@channel8network.online</p>
                                 </div>
                             </div>
 

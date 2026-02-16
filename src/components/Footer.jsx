@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Instagram, Youtube, Facebook, Mail, MapPin, Phone, Linkedin } from 'lucide-react';
 
 const XLogo = ({ size = 18, className }) => (
@@ -44,8 +45,18 @@ const Footer = () => {
                 <div>
                     <h3 className="text-white font-bold mb-4">Quick Links</h3>
                     <ul className="space-y-2 text-sm">
-                        {['About Us', 'Platforms', 'Advertise', 'Privacy Policy', 'Terms & Conditions'].map(item => (
-                            <li key={item}><a href="#" className="hover:text-teal-400 transition-colors">{item}</a></li>
+                        {[
+                            { name: 'About Us', path: '/about' },
+                            { name: 'Our Channels', path: '/platforms' },
+                            { name: 'Advertise', path: '/contact' },
+                            { name: 'Privacy Policy', path: '#' },
+                            { name: 'Terms & Conditions', path: '#' }
+                        ].map((item) => (
+                            <li key={item.name}>
+                                <Link to={item.path} className="hover:text-teal-400 transition-colors">
+                                    {item.name}
+                                </Link>
+                            </li>
                         ))}
                     </ul>
                 </div>
@@ -54,9 +65,9 @@ const Footer = () => {
                 <div>
                     <h3 className="text-white font-bold mb-4">Contact</h3>
                     <ul className="space-y-3 text-sm">
-                        <li className="flex items-center gap-3"><Mail size={16} /> info@channel8network.com</li>
+                        <li className="flex items-center gap-3"><Mail size={16} /> hello@channel8network.online</li>
                         <li className="flex items-center gap-3"><Phone size={16} /> +91-7075782798</li>
-                        <li className="flex items-center gap-3"><MapPin size={16} /> Global Digital Operations</li>
+                        <li className="flex items-start gap-3"><MapPin size={16} className="mt-1 flex-shrink-0" /> <span>Mahaveer Radiance, 1st floor; Madhapur, Road No. 36, Jubilee Hills, Telangana 500081</span></li>
                     </ul>
                 </div>
             </div>

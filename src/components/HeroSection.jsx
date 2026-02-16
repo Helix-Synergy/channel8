@@ -187,8 +187,7 @@ const HeroSection = () => {
                 </div>
 
                 <div className="absolute bottom-12 text-center pointer-events-none">
-                    <h2 className="text-2xl md:text-3xl font-bold text-white mb-2 drop-shadow-lg">Impactful Digital Storytelling</h2>
-                    <p className="text-gray-400 font-light drop-shadow-md">Explore our universe of content</p>
+                    <h2 className="text-2xl md:text-3xl font-bold text-white mb-2 drop-shadow-lg">One Network. Infinite Voices.</h2>
                 </div>
 
             </div>

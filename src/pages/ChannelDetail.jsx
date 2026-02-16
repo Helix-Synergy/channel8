@@ -107,11 +107,11 @@ const ChannelDetail = () => {
                     </div>
                     <div className="w-full md:w-1/2">
                         <div className="grid grid-cols-2 gap-4">
-                            <div className="h-64 rounded-2xl bg-gray-600/20 overflow-hidden">
-                                <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&q=80&w=600" className="w-full h-full object-cover" alt="Content preview" />
+                            <div className="h-80 rounded-2xl flex items-center justify-center p-0 overflow-hidden">
+                                <img src={channel.tileImg} className="w-full h-full object-contain drop-shadow-lg scale-125" alt={`${channel.title} Logo`} />
                             </div>
-                            <div className="h-64 rounded-2xl bg-gray-600/20 overflow-hidden translate-y-8">
-                                <img src="https://images.unsplash.com/photo-1626544827763-d516dce335ca?auto=format&fit=crop&q=80&w=600" className="w-full h-full object-cover" alt="Content preview 2" />
+                            <div className="h-80 rounded-2xl bg-gray-600/20 overflow-hidden translate-y-8">
+                                <img src={channel.detailImg} className="w-full h-full object-cover" alt={`${channel.title} Preview`} />
                             </div>
                         </div>
                     </div>

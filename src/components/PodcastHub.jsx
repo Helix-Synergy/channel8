@@ -10,6 +10,31 @@ const PodcastHub = () => {
 
     const API_URL = API_BASE_URL;
 
+    // Custom Scrollbar Styles
+    useEffect(() => {
+        const style = document.createElement('style');
+        style.innerHTML = `
+            .custom-scrollbar::-webkit-scrollbar {
+                width: 6px;
+            }
+            .custom-scrollbar::-webkit-scrollbar-track {
+                background: rgba(255, 255, 255, 0.05);
+                border-radius: 10px;
+            }
+            .custom-scrollbar::-webkit-scrollbar-thumb {
+                background: rgba(20, 184, 166, 0.3);
+                border-radius: 10px;
+            }
+            .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+                background: rgba(20, 184, 166, 0.5);
+            }
+        `;
+        document.head.appendChild(style);
+        return () => {
+            document.head.removeChild(style);
+        };
+    }, []);
+
     useEffect(() => {
         const fetchPodcasts = async () => {
             try {
@@ -22,7 +47,11 @@ const PodcastHub = () => {
                     title: pod.title,
                     duration: pod.duration,
                     date: pod.date,
-                    image: pod.thumbnailUrl ? `${API_URL.replace('/api', '')}/${pod.thumbnailUrl.replace(/\\/g, '/')}` : '/images/podcast_placeholder.jpg',
+                    image: pod.thumbnailUrl && (pod.thumbnailUrl.startsWith('http') || pod.thumbnailUrl.startsWith('https'))
+                        ? pod.thumbnailUrl
+                        : pod.thumbnailUrl
+                            ? `${API_URL.replace('/api', '')}/${pod.thumbnailUrl.replace(/\\/g, '/')}`
+                            : '/images/podcast_placeholder.jpg',
                     audioUrl: pod.audioUrl,
                     description: pod.description
                 }));
@@ -51,7 +80,7 @@ const PodcastHub = () => {
             <div className="absolute top-1/2 left-1/4 w-96 h-96 bg-teal-500/10 rounded-full blur-[100px]" />
 
             <div className="max-w-7xl mx-auto px-6 relative z-10">
-                <div className="flex flex-col md:flex-row gap-12 items-center">
+                <div className="flex flex-col md:flex-row gap-12 items-start">
 
                     {/* Left Side: Dynamic Thumbnail & Visualizer */}
                     <div className="w-full md:w-1/2 flex flex-col items-center md:items-start">
@@ -127,8 +156,8 @@ const PodcastHub = () => {
                     </div>
 
                     {/* Episode List */}
-                    <div className="w-full md:w-1/2">
-                        <div className="space-y-4">
+                    <div className="w-full md:w-1/2 md:mt-40">
+                        <div className="space-y-4 w-full aspect-video md:aspect-[16/10] overflow-y-auto pr-2 custom-scrollbar">
                             {episodes.map((ep, index) => (
                                 <motion.div
                                     key={ep.id}

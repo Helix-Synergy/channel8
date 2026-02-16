@@ -11,7 +11,7 @@ const Navbar = () => {
     const links = [
         { name: 'Home', path: '/' },
         { name: 'About', path: '/about' },
-        { name: 'Platforms', path: '/platforms' },
+        { name: 'Our Channels', path: '/platforms' },
         { name: 'Contact', path: '/contact' },
     ];
 
@@ -38,10 +38,8 @@ const Navbar = () => {
                 {/* Logo */}
                 <NavLink to="/" className="flex items-center gap-3 group text-white">
                     <img src="/images/navbar_brand_logo.png" alt="Channel 8 Logo" className="w-16 h-16 rounded-lg object-cover group-hover:scale-110 transition-transform" />
-                    <div className="flex items-baseline leading-none">
-                        <span className="text-4xl font-bold">Channel</span>
-                        <span className="text-6xl font-extrabold text-teal-400 mx-0.5">8</span>
-                        <span className="text-4xl font-bold ml-1">Network</span>
+                    <div className="flex items-baseline gap-1.5 text-2xl font-bold">
+                        Channel <span className="text-4xl text-teal-400">8</span> Network
                     </div>
                 </NavLink>
 
@@ -73,7 +71,7 @@ const Navbar = () => {
                         href="https://www.youtube.com/@Channel8network"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="px-5 py-2 bg-white/10 text-white text-sm font-bold rounded-full hover:bg-teal-500 hover:text-navy-900 transition-all border border-white/10"
+                        className="px-5 py-2 bg-teal-500 text-navy-900 text-sm font-bold rounded-full hover:bg-black hover:text-teal-400 transition-all border border-teal-500 hover:border-teal-400"
                     >
                         Subscribe
                     </a>
