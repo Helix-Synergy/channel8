@@ -107,7 +107,7 @@ const Contact = () => {
                                     Global HQ
                                 </span>
                                 <h3 className="text-xl font-bold text-white mb-1">Mahaveer Radiance</h3>
-                                <p className="text-gray-300 text-sm">1st floor; Madhapur, Road No. 36, Jubilee Hills, Telangana 500081</p>
+                                <p className="text-gray-300 text-sm">Near Madhapur metro station, CBI Colony, Hyderabad, Telangana 500081</p>
                             </div>
                         </div>
 
@@ -129,7 +129,7 @@ const Contact = () => {
                                 </div>
                                 <div>
                                     <p className="text-gray-400 text-xs uppercase tracking-wider font-bold">Call Us</p>
-                                    <p className="text-white font-medium">+91-7075782798</p>
+                                    <p className="text-white font-medium">+91 7075 782 798</p>
                                 </div>
                             </div>
                         </div>

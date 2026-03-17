@@ -14,8 +14,7 @@ const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: {
         folder: 'podcasts',
-        allowed_formats: ['jpg', 'png', 'jpeg'],
-        resource_type: 'image'
+        resource_type: 'auto'
     }
 });
 

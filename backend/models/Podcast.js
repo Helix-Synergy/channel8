@@ -20,6 +20,9 @@ const PodcastSchema = new mongoose.Schema({
     thumbnailUrl: {
         type: String // Path to uploaded image
     },
+    videoUrl: {
+        type: String // Path to uploaded video
+    },
     createdAt: {
         type: Date,
         default: Date.now

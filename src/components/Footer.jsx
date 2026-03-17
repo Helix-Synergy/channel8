@@ -34,7 +34,7 @@ const Footer = () => {
                             { Icon: Linkedin, href: "https://www.linkedin.com/in/channel-8-network-b43385395/" },
                             { Icon: Facebook, href: "https://www.facebook.com/profile.php?id=61583259411504" }
                         ].map(({ Icon, href }, i) => (
-                            <a key={i} href={href} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-teal-500 hover:text-navy-900 transition-all">
+                            <a key={i} href={href} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-teal-500 text-navy-900 flex items-center justify-center hover:bg-white/5 hover:text-white transition-all">
                                 <Icon size={18} />
                             </a>
                         ))}
@@ -66,8 +66,8 @@ const Footer = () => {
                     <h3 className="text-white font-bold mb-4">Contact</h3>
                     <ul className="space-y-3 text-sm">
                         <li className="flex items-center gap-3"><Mail size={16} /> hello@channel8network.online</li>
-                        <li className="flex items-center gap-3"><Phone size={16} /> +91-7075782798</li>
-                        <li className="flex items-start gap-3"><MapPin size={16} className="mt-1 flex-shrink-0" /> <span>Mahaveer Radiance, 1st floor; Madhapur, Road No. 36, Jubilee Hills, Telangana 500081</span></li>
+                        <li className="flex items-center gap-3"><Phone size={16} /> 7075 782 798</li>
+                        <li className="flex items-start gap-3"><MapPin size={16} className="mt-1 flex-shrink-0" /> <span>Mahaveer Radiance, Near Madhapur metro station, CBI Colony, Hyderabad, Telangana 500081</span></li>
                     </ul>
                 </div>
             </div>

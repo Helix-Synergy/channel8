@@ -15,7 +15,9 @@ exports.getPodcasts = async (req, res) => {
 exports.createPodcast = async (req, res) => {
     try {
         const { title, description, duration, date, audioUrl } = req.body;
-        const thumbnailPath = req.file ? req.file.path : null;
+        
+        const thumbnailPath = req.files && req.files['thumbnail'] ? req.files['thumbnail'][0].path : null;
+        const videoPath = req.files && req.files['video'] ? req.files['video'][0].path : null;
 
         const newPodcast = new Podcast({
             title,
@@ -23,7 +25,8 @@ exports.createPodcast = async (req, res) => {
             duration,
             date,
             audioUrl,
-            thumbnailUrl: thumbnailPath
+            thumbnailUrl: thumbnailPath,
+            videoUrl: videoPath
         });
 
         await newPodcast.save();

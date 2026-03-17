@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Play, Music } from 'lucide-react';
 import API_BASE_URL from '../config';
@@ -7,6 +7,16 @@ const PodcastHub = () => {
     const [episodes, setEpisodes] = useState([]);
     const [activeEpisode, setActiveEpisode] = useState(null);
     const [loading, setLoading] = useState(true);
+    const videoRef = useRef(null);
+
+    useEffect(() => {
+        if (videoRef.current && activeEpisode?.videoUrl) {
+            videoRef.current.load();
+            videoRef.current.play().catch(err => {
+                console.warn("Autoplay was prevented:", err);
+            });
+        }
+    }, [activeEpisode?.videoUrl]);
 
     const API_URL = API_BASE_URL;
 
@@ -47,12 +57,9 @@ const PodcastHub = () => {
                     title: pod.title,
                     duration: pod.duration,
                     date: pod.date,
-                    image: pod.thumbnailUrl && (pod.thumbnailUrl.startsWith('http') || pod.thumbnailUrl.startsWith('https'))
-                        ? pod.thumbnailUrl
-                        : pod.thumbnailUrl
-                            ? `${API_URL.replace('/api', '')}/${pod.thumbnailUrl.replace(/\\/g, '/')}`
-                            : '/images/podcast_placeholder.jpg',
+                    image: pod.thumbnailUrl || '/images/podcast_placeholder.jpg',
                     audioUrl: pod.audioUrl,
+                    videoUrl: pod.videoUrl || null,
                     description: pod.description
                 }));
 
@@ -104,16 +111,35 @@ const PodcastHub = () => {
                         >
                             {activeEpisode && (
                                 <AnimatePresence mode='wait'>
-                                    <motion.img
-                                        key={activeEpisode.id}
-                                        src={activeEpisode.image}
-                                        alt={activeEpisode.title}
-                                        initial={{ opacity: 0, scale: 1.05 }}
-                                        animate={{ opacity: 1, scale: 1 }}
-                                        exit={{ opacity: 0 }}
-                                        transition={{ duration: 0.4 }}
-                                        className="absolute inset-0 w-full h-full object-cover"
-                                    />
+                                    {activeEpisode.videoUrl ? (
+                                        <motion.video
+                                            ref={videoRef}
+                                            key={`video-${activeEpisode.id}`}
+                                            autoPlay={true}
+                                            muted={true}
+                                            loop={true}
+                                            playsInline={true}
+                                            preload="auto"
+                                            initial={{ opacity: 0 }}
+                                            animate={{ opacity: 1 }}
+                                            exit={{ opacity: 0 }}
+                                            className="absolute inset-0 w-full h-full object-cover"
+                                        >
+                                            <source src={activeEpisode.videoUrl} type="video/mp4" />
+                                            Your browser does not support the video tag.
+                                        </motion.video>
+                                    ) : (
+                                        <motion.img
+                                            key={activeEpisode.id}
+                                            src={activeEpisode.image}
+                                            alt={activeEpisode.title}
+                                            initial={{ opacity: 0, scale: 1.05 }}
+                                            animate={{ opacity: 1, scale: 1 }}
+                                            exit={{ opacity: 0 }}
+                                            transition={{ duration: 0.4 }}
+                                            className="absolute inset-0 w-full h-full object-cover"
+                                        />
+                                    )}
                                 </AnimatePresence>
                             )}
 
