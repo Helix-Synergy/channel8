@@ -3,9 +3,9 @@ const Video = require('../models/Video');
 exports.submitVideo = async (req, res) => {
     try {
         const { name, email, description } = req.body;
-        const videoPath = req.file ? req.file.path : null;
+        const videoUrl = req.file ? req.file.path : null;
 
-        if (!videoPath) {
+        if (!videoUrl) {
             return res.status(400).json({ message: 'No video file uploaded' });
         }
 
@@ -13,7 +13,7 @@ exports.submitVideo = async (req, res) => {
             name,
             email,
             description,
-            videoPath
+            videoPath: videoUrl
         });
 
         await newVideo.save();
