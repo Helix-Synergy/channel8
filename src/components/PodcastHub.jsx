@@ -57,9 +57,17 @@ const PodcastHub = () => {
                     title: pod.title,
                     duration: pod.duration,
                     date: pod.date,
-                    image: pod.thumbnailUrl || '/images/podcast_placeholder.jpg',
+                    image: pod.thumbnailUrl 
+                        ? (pod.thumbnailUrl.includes('cloudinary.com') 
+                            ? pod.thumbnailUrl.replace('/upload/', '/upload/f_auto,q_auto/') 
+                            : pod.thumbnailUrl)
+                        : '/images/podcast_placeholder.jpg',
                     audioUrl: pod.audioUrl,
-                    videoUrl: pod.videoUrl || null,
+                    videoUrl: pod.videoUrl 
+                        ? (pod.videoUrl.includes('cloudinary.com') 
+                            ? pod.videoUrl.replace('/upload/', '/upload/f_auto,q_auto/') 
+                            : pod.videoUrl)
+                        : null,
                     description: pod.description
                 }));
 
@@ -110,33 +118,33 @@ const PodcastHub = () => {
                             className="block relative w-full aspect-video md:aspect-[16/10] bg-navy-900 rounded-2xl overflow-hidden border border-white/10 shadow-2xl mb-8 group cursor-pointer"
                         >
                             {activeEpisode && (
-                                <AnimatePresence mode='wait'>
+                                <AnimatePresence>
                                     {activeEpisode.videoUrl ? (
                                         <motion.video
                                             ref={videoRef}
                                             key={`video-${activeEpisode.id}`}
-                                            autoPlay={true}
-                                            muted={true}
-                                            loop={true}
-                                            playsInline={true}
+                                            autoPlay
+                                            muted
+                                            loop
+                                            playsInline
                                             preload="auto"
                                             initial={{ opacity: 0 }}
                                             animate={{ opacity: 1 }}
                                             exit={{ opacity: 0 }}
+                                            transition={{ duration: 0.3 }}
                                             className="absolute inset-0 w-full h-full object-cover"
                                         >
-                                            <source src={activeEpisode.videoUrl} type="video/mp4" />
-                                            Your browser does not support the video tag.
+                                            <source src={activeEpisode.videoUrl} />
                                         </motion.video>
                                     ) : (
                                         <motion.img
-                                            key={activeEpisode.id}
+                                            key={`img-${activeEpisode.id}`}
                                             src={activeEpisode.image}
                                             alt={activeEpisode.title}
-                                            initial={{ opacity: 0, scale: 1.05 }}
-                                            animate={{ opacity: 1, scale: 1 }}
+                                            initial={{ opacity: 0 }}
+                                            animate={{ opacity: 1 }}
                                             exit={{ opacity: 0 }}
-                                            transition={{ duration: 0.4 }}
+                                            transition={{ duration: 0.3 }}
                                             className="absolute inset-0 w-full h-full object-cover"
                                         />
                                     )}
