@@ -10,13 +10,19 @@ const PodcastHub = () => {
     const videoRef = useRef(null);
 
     useEffect(() => {
-        if (videoRef.current && activeEpisode?.videoUrl) {
-            videoRef.current.load();
-            videoRef.current.play().catch(err => {
-                console.warn("Autoplay was prevented:", err);
-            });
+        const video = videoRef.current;
+        if (video && activeEpisode?.videoUrl) {
+            video.load();
+            const playPromise = video.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(err => {
+                    console.warn("Autoplay auto-retry...", err);
+                    // Explicitly try again after a brief moment if blocked
+                    setTimeout(() => video.play().catch(() => {}), 100);
+                });
+            }
         }
-    }, [activeEpisode?.videoUrl]);
+    }, [activeEpisode?.id, activeEpisode?.videoUrl]);
 
     const API_URL = API_BASE_URL;
 
@@ -132,10 +138,13 @@ const PodcastHub = () => {
                                             animate={{ opacity: 1 }}
                                             exit={{ opacity: 0 }}
                                             transition={{ duration: 0.3 }}
+                                            src={activeEpisode.videoUrl}
+                                            onError={() => {
+                                                console.error("Video failed to load, falling back to image");
+                                                setActiveEpisode(prev => ({ ...prev, videoUrl: null }));
+                                            }}
                                             className="absolute inset-0 w-full h-full object-cover"
-                                        >
-                                            <source src={activeEpisode.videoUrl} />
-                                        </motion.video>
+                                        />
                                     ) : (
                                         <motion.img
                                             key={`img-${activeEpisode.id}`}
