@@ -23,9 +23,11 @@ const io = new Server(server, {
 });
 
 io.on('connection', (socket) => {
+    console.log('🟢 New client connected! Total clients:', io.engine.clientsCount);
     io.emit('visitorCount', 1000 + io.engine.clientsCount);
 
     socket.on('disconnect', () => {
+        console.log('🔴 Client disconnected! Total clients:', io.engine.clientsCount);
         io.emit('visitorCount', 1000 + io.engine.clientsCount);
     });
 });

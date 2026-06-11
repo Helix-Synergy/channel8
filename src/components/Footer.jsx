@@ -23,9 +23,19 @@ const Footer = () => {
     const [visitorCount, setVisitorCount] = useState(1000);
 
     useEffect(() => {
+        console.log('🔌 Connecting to socket at:', SOCKET_URL);
         const socket = io(SOCKET_URL);
 
+        socket.on('connect', () => {
+            console.log('✅ Socket connected successfully!');
+        });
+
+        socket.on('connect_error', (err) => {
+            console.error('❌ Socket connection error:', err.message);
+        });
+
         socket.on('visitorCount', (count) => {
+            console.log('📊 Received visitor count update:', count);
             setVisitorCount(count);
         });
 
