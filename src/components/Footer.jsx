@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Instagram, Youtube, Facebook, Mail, MapPin, Phone, Linkedin } from 'lucide-react';
+import { Instagram, Youtube, Facebook, Mail, MapPin, Phone, Linkedin, Users } from 'lucide-react';
+import { io } from 'socket.io-client';
+import API_BASE_URL from '../config';
+
+const SOCKET_URL = API_BASE_URL.replace('/api', '');
 
 const XLogo = ({ size = 18, className }) => (
     <svg
@@ -16,6 +20,20 @@ const XLogo = ({ size = 18, className }) => (
 );
 
 const Footer = () => {
+    const [visitorCount, setVisitorCount] = useState(1000);
+
+    useEffect(() => {
+        const socket = io(SOCKET_URL);
+
+        socket.on('visitorCount', (count) => {
+            setVisitorCount(count);
+        });
+
+        return () => {
+            socket.disconnect();
+        };
+    }, []);
+
     return (
         <footer className="bg-navy-950 pt-20 pb-32 border-t border-white/5 text-gray-400">
             <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12">
@@ -72,8 +90,18 @@ const Footer = () => {
                 </div>
             </div>
 
-            <div className="mt-16 text-center text-xs border-t border-white/5 pt-8">
-                © 2026 Channel 8 Network. All rights reserved.
+            <div className="mt-16 flex flex-col md:flex-row items-center justify-between border-t border-white/5 pt-8">
+                <div className="text-xs text-center md:text-left mb-4 md:mb-0">
+                    © 2026 Channel 8 Network. All rights reserved.
+                </div>
+                <div className="flex items-center gap-2 text-sm text-teal-400 font-medium bg-teal-500/10 px-4 py-2 rounded-full border border-teal-500/20">
+                    <div className="relative flex h-2.5 w-2.5">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-teal-500"></span>
+                    </div>
+                    <Users size={16} />
+                    <span>Live Visitors: {visitorCount}</span>
+                </div>
             </div>
         </footer>
     );
