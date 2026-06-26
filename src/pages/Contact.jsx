@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Send, Globe, MessageSquare } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
 import VideoSubmissionModal from '../components/VideoSubmissionModal';
+import SEO from '../components/SEO';
 
 import API_BASE_URL from '../config';
 
@@ -67,6 +68,11 @@ const Contact = () => {
 
     return (
         <div className="min-h-screen pt-32 pb-20 px-6 bg-navy-900 relative overflow-hidden">
+            <SEO 
+                title="Contact Us" 
+                description="Get in touch with Channel 8 Network. Whether you have a story, a partnership proposal, or just want to say hello, we are ready to listen." 
+                url="https://channel8network.online/contact"
+            />
             {/* Background Ambience */}
             <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
                 <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-teal-500/10 rounded-full blur-[120px] animate-pulse" />

@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { channels as platforms } from '../data/channels.jsx';
+import SEO from '../components/SEO';
 
 const PlatformCard = ({ item, index }) => {
     const ref = useRef(null);
@@ -80,6 +81,11 @@ const PlatformCard = ({ item, index }) => {
 const Platforms = () => {
     return (
         <div className="min-h-screen pt-32 pb-20 px-6 bg-navy-900 relative overflow-hidden">
+            <SEO 
+                title="Our Platforms" 
+                description="Explore the diverse digital channels of Channel 8 Network. We deliver specialized content formats for niche and mass audiences alike." 
+                url="https://channel8network.online/platforms"
+            />
             {/* Background Ambience */}
             <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
                 <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-purple-500/10 rounded-full blur-[120px] mix-blend-screen animate-pulse" style={{ animationDuration: '8s' }} />

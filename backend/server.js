@@ -23,12 +23,10 @@ const io = new Server(server, {
 });
 
 io.on('connection', (socket) => {
-    console.log('🟢 New client connected! Total clients:', io.engine.clientsCount);
-    io.emit('visitorCount', 1000 + io.engine.clientsCount);
+    console.log('🟢 New client connected! Socket ID:', socket.id);
 
     socket.on('disconnect', () => {
-        console.log('🔴 Client disconnected! Total clients:', io.engine.clientsCount);
-        io.emit('visitorCount', 1000 + io.engine.clientsCount);
+        console.log('🔴 Client disconnected! Socket ID:', socket.id);
     });
 });
 
@@ -42,6 +40,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/api/contact', contactRoutes);
 app.use('/api/videos', videoRoutes);
 app.use('/api/podcasts', podcastRoutes);
+app.use('/api/visitors', require('./routes/visitorRoutes'));
 
 const PORT = process.env.PORT || 5000;
 

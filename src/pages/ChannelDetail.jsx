@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Play, Users, Eye, Video } from 'lucide-react';
 import { channels } from '../data/channels.jsx';
+import SEO from '../components/SEO';
 
 const ChannelDetail = () => {
     const { id } = useParams();
@@ -28,6 +29,12 @@ const ChannelDetail = () => {
 
     return (
         <div className="min-h-screen bg-navy-900 pb-20 relative overflow-hidden">
+            <SEO 
+                title={channel.title} 
+                description={channel.desc}
+                url={`https://channel8network.online/channel/${channel.id}`}
+                image={channel.tileImg || channel.detailImg}
+            />
             {/* Dynamic Background */}
             <div className={`absolute top-0 right-0 w-[500px] h-[500px] rounded-full blur-[150px] bg-gradient-to-br ${channel.color} opacity-20 pointer-events-none`} />
 

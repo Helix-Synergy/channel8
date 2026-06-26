@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Instagram, Youtube, Facebook, Mail, MapPin, Phone, Linkedin, Users } from 'lucide-react';
-import { io } from 'socket.io-client';
 import API_BASE_URL from '../config';
-
-const SOCKET_URL = API_BASE_URL.replace('/api', '');
 
 const XLogo = ({ size = 18, className }) => (
     <svg
@@ -20,28 +17,31 @@ const XLogo = ({ size = 18, className }) => (
 );
 
 const Footer = () => {
-    const [visitorCount, setVisitorCount] = useState(1000);
+    const [totalVisitors, setTotalVisitors] = useState(0);
 
     useEffect(() => {
-        console.log('🔌 Connecting to socket at:', SOCKET_URL);
-        const socket = io(SOCKET_URL);
+        // Fetch total visitors from DB
+        const fetchTotalVisitors = async () => {
+            try {
+                const hasVisited = sessionStorage.getItem('hasVisited');
+                let endpoint = `${API_BASE_URL}/visitors/count`; // default to just fetch count
+                
+                if (!hasVisited) {
+                    endpoint = `${API_BASE_URL}/visitors`; // increment if new session
+                }
 
-        socket.on('connect', () => {
-            console.log('✅ Socket connected successfully!');
-        });
-
-        socket.on('connect_error', (err) => {
-            console.error('❌ Socket connection error:', err.message);
-        });
-
-        socket.on('visitorCount', (count) => {
-            console.log('📊 Received visitor count update:', count);
-            setVisitorCount(count);
-        });
-
-        return () => {
-            socket.disconnect();
+                const response = await fetch(endpoint);
+                const data = await response.json();
+                setTotalVisitors(data.totalVisitors);
+                
+                if (!hasVisited && data.totalVisitors > 0) {
+                    sessionStorage.setItem('hasVisited', 'true');
+                }
+            } catch (error) {
+                console.error('Error fetching total visitors:', error);
+            }
         };
+        fetchTotalVisitors();
     }, []);
 
     return (
@@ -100,17 +100,15 @@ const Footer = () => {
                 </div>
             </div>
 
-            <div className="mt-16 flex flex-col md:flex-row items-center justify-between border-t border-white/5 pt-8">
+            <div className="mt-16 flex flex-col md:flex-row items-center justify-between border-t border-white/5 pt-8 px-6 max-w-7xl mx-auto">
                 <div className="text-xs text-center md:text-left mb-4 md:mb-0">
                     © 2026 Channel 8 Network. All rights reserved.
                 </div>
-                <div className="flex items-center gap-2 text-sm text-teal-400 font-medium bg-teal-500/10 px-4 py-2 rounded-full border border-teal-500/20">
-                    <div className="relative flex h-2.5 w-2.5">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
-                        <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-teal-500"></span>
+                <div className="flex flex-col sm:flex-row items-center gap-4">
+                    <div className="flex items-center gap-2 text-sm text-cyan-400 font-medium bg-cyan-500/10 px-4 py-2 rounded-full border border-cyan-500/20">
+                        <Users size={16} />
+                        <span>Total Visitors: {totalVisitors > 0 ? totalVisitors.toLocaleString() : '...'}</span>
                     </div>
-                    <Users size={16} />
-                    <span>Live Visitors: {visitorCount}</span>
                 </div>
             </div>
         </footer>

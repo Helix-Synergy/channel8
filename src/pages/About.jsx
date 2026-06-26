@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Users, Globe, Award, TrendingUp } from 'lucide-react';
+import SEO from '../components/SEO';
 
 const stats = [
     { id: 1, label: 'Monthly Views', value: '1M+', icon: <TrendingUp /> },
@@ -12,7 +13,11 @@ const stats = [
 const About = () => {
     return (
         <div className="min-h-screen bg-navy-900 pb-20 overflow-x-hidden">
-
+            <SEO 
+                title="About Us" 
+                description="Learn more about Channel 8 Network, our mission, vision, and the passion that drives our digital media broadcasting company." 
+                url="https://channel8network.online/about"
+            />
             {/* Hero Section with Parallax-like Image */}
             <div className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
                 <div className="absolute inset-0 z-0">
